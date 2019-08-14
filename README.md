@@ -14,7 +14,11 @@ Then in IDA go to <code>File->Scirpt File</code> and select <code>ida_msr_string
 
 This should import the module into ida as <code>mes</code>
 
+<b>Warning this will overwrite any comments you have already at any MSR/MRS instrcutions so be advised, any other instructions will not be touched though</b>
+
 Finally run the script via <code>mes.process_msr()</code>
+
+Depending on file size this could take a few minutes so theres time to grab a hot drink
 
 Reloading the module after changes
 ==================================
@@ -50,3 +54,14 @@ Easiest way to format this is to use the replace function of Sublime/Notepad++ o
 The final register definitions should be of the format
 <br><code>string name,bits<2> op0,bits<3> op1,bits<4> crn,bits<4> crm,bits<3> op2</code><br>
 <b>NOTE! there should be no spaces between commas and values</b>
+
+Comments are allowed in the Aarch64.reg file with format <code>//</code>
+
+Adding IMPLEMENTATION DEFINED registers
+======================================
+Currently IMPLEMENTATION DEFINED registers will be shown as <code>IMP_DEF</code> in the comments section
+
+In order to add a custom definition for these you can manual add a register defintion to Aarch64.reg file in the form
+<br><code>string name,bits<2> op0,bits<3> op1,bits<4> crn,bits<4> crm,bits<3> op2</code><br>
+
+Then to evalutate the file again you can run <code>mes.process_msr()</code> without needing to reload the python module

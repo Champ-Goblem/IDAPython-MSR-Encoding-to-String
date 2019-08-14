@@ -21,29 +21,32 @@ def process_msr():
 	for segeastart in Segments():
 		print "Checking", SegName(segeastart)
 		for funcea in Functions(segeastart, SegEnd(segeastart)):
-		#for funcea in Functions(SegStart(ScreenEA()), SegEnd(ScreenEA())):
 			for (startea, endea) in Chunks(funcea):
 				for head in Heads(startea, endea):
 					if GetMnem(head) == "MSR":
-						#print "%X" % head
 						sIns = GetManyBytes(head, ItemSize(head))
 						ins = decode_ins(sIns)[11:27]
+						comment = None
 						try:
 							comment =  aarch64Registers[ins]
 						except Exception as e:
 							if int(ins[0:2], 2) == 3 and (int(ins[5:9], 2) == 11 or int(ins[5:9], 2) == 15):
 								comment = 'IMP_DEF'
+						if Comment(head):
+							MakeComm(head, "")
 						if comment != None:
 							MakeComm(head, comment)
 					elif GetMnem(head) == "MRS":
-						#print "%X" % head
 						sIns = GetManyBytes(head, ItemSize(head))
 						ins = decode_ins(sIns)[11:27]
+						comment = None
 						try:
 							comment = aarch64Registers[ins]
 						except Exception as e:
 							if int(ins[0:2], 2) == 3 and (int(ins[5:9], 2) == 11 or int(ins[5:9], 2) == 15):
 								comment = 'IMP_DEF'
+						if Comment(head):
+							MakeComm(head, "")
 						if comment != None:
 							MakeComm(head, comment)
 
