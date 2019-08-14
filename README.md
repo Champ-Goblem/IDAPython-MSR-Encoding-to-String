@@ -33,17 +33,15 @@ Then after that remove all lines that do not start with <code>def :</code>
 
 Finally you need to remove these strings and characters:
 <pre>
-<code>
-	def :
-	ROSysReg
-	RWSysReg
-	WOSysReg
-	<
-	>
-	"
-	;
-	0b
-</code>
+<code>def :
+ROSysReg
+RWSysReg
+WOSysReg
+<
+>
+"
+;
+0b</code>
 </pre>
 You must also remove any space characters too
 
